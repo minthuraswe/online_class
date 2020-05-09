@@ -12,5 +12,4 @@
 */
 
 Route::get('/','HomeController@index');
-Route::get('/php','HomeController@page');
-Route::get('/js','HomeController@page1');
+Route::resource('/course', 'CourseController');
