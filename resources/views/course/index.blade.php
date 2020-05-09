@@ -28,7 +28,7 @@
                             <td>{{$item->name}}</td>
                             <td>{{$item->duration}} weeks</td>
                             <td>{{$item->category}}</td>
-                            <td>{{$item->created_at->diffforHumans()}}</td>
+                            <td>{{$item->updated_at->diffforHumans()}}</td>
                             <td>
                                 <a href="/course/{{$item->id}}/edit" class="btn btn-sm btn-primary">Edit</a>
                                 <form action="/course/{{$item->id}}" method="POST" class="d-inline">

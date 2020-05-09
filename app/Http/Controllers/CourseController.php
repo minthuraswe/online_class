@@ -34,9 +34,11 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
         // dd(request()->all());
+        $this->validateData($request);
+
         Course::create([
             'name' => request('name'),
             'duration' => request('duration'),
@@ -75,8 +77,10 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Course $course)
+    public function update(Course $course, Request $request)
     {
+        $this->validateData($request);
+
         $course = Course::find($course->id);
         $course->name = request()->name;
         $course->duration = request()->duration;
@@ -96,5 +100,14 @@ class CourseController extends Controller
     {
         Course::find($course->id)->delete();
         return redirect('/course');
+    }
+
+    public function validateData($request){
+        $validateData = $request->validate([
+            'name' => 'required',
+            'duration' => 'required',
+            'category' => 'required',
+        ]);
+       
     }
 }
