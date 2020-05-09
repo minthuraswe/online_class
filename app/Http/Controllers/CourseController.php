@@ -45,7 +45,7 @@ class CourseController extends Controller
             'category' => request('category'),
         ]);
 
-        return redirect('/course');
+        return redirect('course');
     }
 
     /**
@@ -87,7 +87,7 @@ class CourseController extends Controller
         $course->category = request()->category;
 
         $course->save();
-        return redirect('/course');
+        return redirect('course');
     }
 
     /**
@@ -99,7 +99,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         Course::find($course->id)->delete();
-        return redirect('/course');
+        return redirect('course');
     }
 
     public function validateData($request){
