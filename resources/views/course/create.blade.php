@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.app')
 @section('content')
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
@@ -10,7 +10,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="">Course Name</label>
-                        <input type="text" class="form-control" id="" name="name" value="{{old('name')}}">
+                        <input type="text" class="form-control" id="" name="name" value="{{old('name')}}" >
                         @if($errors->has('name'))
                         <span class="text-danger">
                             {{$errors->first('name')}}
@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="">Course Duration</label>
                         <input type="number" class="form-control" id="" name="duration"
-                        placeholder="Describe number only for week" value="{{old('duration')}}">
+                        placeholder="Describe number only for week" value="{{old('duration')}}" >
                         @if($errors->has('duration'))
                         <span class="text-danger">
                           {{$errors->first('duration')}}
@@ -29,10 +29,19 @@
                     </div>
                     <div class="form-group">
                         <label for="">Course Category</label>
-                        <input type="text" class="form-control" id="" name="category" value="{{old('category')}}">
+                        <select class="custom-select"  name="category" >
+                            <option value="">Choose Category</option>
+                            @foreach ($cat as $item)
+                                @if(Request::old('category') == $item->id)
+                                    <option value="{{$item->id}}" selected>{{$item->cat_name}}</option>
+                                @else
+                                    <option value="{{$item->id}}">{{$item->cat_name}}</option>
+                                @endif
+                            @endforeach
+                        </select>
                         @if($errors->has('category'))
                         <span class="text-danger">
-                            {{$errors->first('category')}}
+                          {{$errors->first('category')}}
                         </span>
                         @endif
                     </div>

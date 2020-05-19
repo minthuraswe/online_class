@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     protected $fillable = [
-        'name', 'duration', 'category',
+        'name', 'duration', 'cat_id',
     ];
+
+    public function category(){
+        $this->belongsTo('App\Category');
+    }
 }

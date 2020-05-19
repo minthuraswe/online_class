@@ -11,5 +11,9 @@
 |
 */
 
-Route::get('/','HomeController@index');
+Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
+
 Route::resource('/course', 'CourseController');
+Route::resource('/category', 'CategoryController')->middleware('checkrole');
+Route::resource('/role', 'RoleController');

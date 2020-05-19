@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Course;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class CategoryController extends Controller
 {
     public function __construct()
     {
@@ -19,8 +18,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $data = Course::all();
-        return view('course.index', compact('data'));
+        $cat = Category::all();
+        return view('category.index', compact('cat'));
     }
 
     /**
@@ -30,13 +29,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->isAdmin == 1) {
-            $cat = Category::all();
-            return view('course.create', compact('cat'));
-        } else {
-            return redirect('course')->with('message', 'You are not allowed to this page');
-        }
-
+        //
     }
 
     /**
@@ -47,16 +40,13 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(request()->all());
         $this->validateData($request);
 
-        Course::create([
-            'name' => request()->name,
-            'duration' => request()->duration,
-            'cat_id' => request()->category,
+        Category::create([
+            'cat_name' => request('cat_name'),
         ]);
 
-        return redirect('course');
+        return redirect('category');
     }
 
     /**
@@ -65,9 +55,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -76,10 +66,9 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit(Category $category)
     {
-        $cat = Category::all();
-        return view('course.edit', compact('course', 'cat'));
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -89,15 +78,14 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Course $course, Request $request)
+    public function update(Category $category)
     {
+        $cat = Category::find($category->id);
+        $cat->cat_name = request()->cat_name;
 
-        $course = Course::find($course->id);
-        $course->name = request()->name;
-        $course->duration = request()->duration;
-        $course->cat_id = request()->category;
-        $course->save();
-        return redirect('course');
+        $cat->save();
+        return redirect('category');
+
     }
 
     /**
@@ -106,18 +94,16 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Course $course)
+    public function destroy(Category $category)
     {
-        Course::find($course->id)->delete();
-        return redirect('course');
+        Category::find($category->id)->delete();
+        return redirect('category');
     }
 
     public function validateData($request)
     {
         $validateData = $request->validate([
-            'name' => 'required',
-            'duration' => 'required',
-            'category' => 'required',
+            'cat_name' => 'required',
         ]);
 
     }

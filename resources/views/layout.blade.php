@@ -22,6 +22,9 @@
             <li class="nav-item">
               <a class="nav-link" href="/course">Courses <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/category">Category</a>
+            </li>
           </ul>
         </div>
       </nav>
