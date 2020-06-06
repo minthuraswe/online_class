@@ -11,6 +11,12 @@
 |
 */
 
+
+
+// Route::get('/', function(){
+//    dd( app('test'));
+// });
+
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 

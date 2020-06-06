@@ -6,6 +6,7 @@ use App\Category;
 use App\Course;
 use Illuminate\Http\Request;
 
+
 class CourseController extends Controller
 {
     public function __construct()
@@ -50,13 +51,14 @@ class CourseController extends Controller
         // dd(request()->all());
         $this->validateData($request);
 
-        Course::create([
+        $course = Course::create([
             'name' => request()->name,
             'duration' => request()->duration,
             'cat_id' => request()->category,
         ]);
 
         return redirect('course');
+
     }
 
     /**
@@ -97,6 +99,7 @@ class CourseController extends Controller
         $course->duration = request()->duration;
         $course->cat_id = request()->category;
         $course->save();
+        flash();
         return redirect('course');
     }
 
@@ -109,6 +112,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         Course::find($course->id)->delete();
+        flash();
         return redirect('course');
     }
 

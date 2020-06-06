@@ -26,6 +26,14 @@
         <div class="row justify-content-center">
             <div class="col-md-9 mt-2">
                 <h4>Category List</h4>
+                @if(session('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                   {{session('message')}}
+                    <div class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </div>
+                </div>
+                @endif
                 <ul class="pl-4">
                     @foreach ($cat as $item)
                         <li>

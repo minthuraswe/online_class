@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\helpers;    
+use App\test;
 
 class CategoryController extends Controller
 {
@@ -18,6 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+       
         $cat = Category::all();
         return view('category.index', compact('cat'));
     }
@@ -45,7 +48,7 @@ class CategoryController extends Controller
         Category::create([
             'cat_name' => request('cat_name'),
         ]);
-
+        flash();
         return redirect('category');
     }
 
@@ -55,8 +58,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
-    {
+    public function show(Category $category,test $test)
+    {   
+        // dd($test);   
         return view('category.show', compact('category'));
     }
 
@@ -84,6 +88,7 @@ class CategoryController extends Controller
         $cat->cat_name = request()->cat_name;
 
         $cat->save();
+        flash();
         return redirect('category');
 
     }
@@ -97,6 +102,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         Category::find($category->id)->delete();
+        flash();
         return redirect('category');
     }
 

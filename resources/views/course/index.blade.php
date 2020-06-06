@@ -12,6 +12,14 @@
                     <a href="/course/create" class="btn btn-success">Add New Course</a>
                 </div>
             </div>
+            @if(session('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               {{session('message')}}
+                <div class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </div>
+            </div>
+            @endif
             <table class="table mt-3 mb-3">
                 <thead>
                     <tr>
